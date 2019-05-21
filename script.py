@@ -19,11 +19,29 @@ from draw import *
   with the name being used.
   ==================== """
 def first_pass( commands ):
-
+    # move scale and rotate
+    #
     name = ''
     num_frames = 1
 
+    for command in commands:
+        if command['op'] == 'frames':
+            num_frames= command['args']
+
+        if command['op'] == 'basename':
+            name= command['args'][0]
+
+        if command['op'] == 'vary':
+            pass
+
+    if num_frames!= 1 and name== '':
+        name= 'default'
+        print("Name being used is: "+ name)
+        #print("command: "+ str(i))
+        #pass
+
     return (name, num_frames)
+
 
 """======== second_pass( commands ) ==========
 
