@@ -26,10 +26,10 @@ def first_pass( commands ):
 
     for command in commands:
         if command['op'] == 'frames':
-            num_frames= command['args']
+            num_frames= command['args'][0]
 
         if command['op'] == 'basename':
-            name= command['args'][0]
+            name= command['args']
 
         if command['op'] == 'vary':
             pass
@@ -46,7 +46,7 @@ def first_pass( commands ):
 """======== second_pass( commands ) ==========
 
   In order to set the knobs for animation, we need to keep
-  a seaprate value for each knob for each frame. We can do
+  a seprate value for each knob for each frame. We can do
   this by using an array of dictionaries. Each array index
   will correspond to a frame (eg. knobs[0] would be the first
   frame, knobs[2] would be the 3rd frame and so on).
@@ -60,9 +60,17 @@ def first_pass( commands ):
   dictionary corresponding to the given knob with the
   appropirate value.
   ===================="""
-def second_pass( commands, num_frames ):
-    frames = [ {} for i in range(num_frames) ]
 
+def second_pass( commands, num_frames ):
+    #array of dictionaries
+    #knob[0] first frame
+    num_frames= int(num_frames)
+    frames = [ {} for i in range(num_frames)]
+    for command in commands:
+        if command== "vary":
+            for i in range(num_frames):
+                #getting that dictionary value
+                frames[i][command['knob']]= command['args']
     return frames
 
 
