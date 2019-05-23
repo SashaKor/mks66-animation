@@ -32,13 +32,12 @@ def first_pass( commands ):
             name= command['args']
 
         if command['op'] == 'vary':
+            #program quits
             pass
 
     if num_frames!= 1 and name== '':
         name= 'default'
         print("Name being used is: "+ name)
-        #print("command: "+ str(i))
-        #pass
 
     return (name, num_frames)
 
@@ -66,11 +65,14 @@ def second_pass( commands, num_frames ):
     #knob[0] first frame
     num_frames= int(num_frames)
     frames = [ {} for i in range(num_frames)]
+    #print("commands: "+ str(commands))
     for command in commands:
-        if command== "vary":
+        if command['op']== "vary":
             for i in range(num_frames):
                 #getting that dictionary value
                 frames[i][command['knob']]= command['args']
+
+    print(frames)
     return frames
 
 
